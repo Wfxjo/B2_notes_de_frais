@@ -1,0 +1,15 @@
+Analyse cette note de frais et retourne UNIQUEMENT un JSON avec exactement ces champs :
+
+{
+  "type_document": "restaurant | transport | hotel | autre",
+  "fournisseur": "nom du commerce ou de la compagnie",
+  "date": "JJ/MM/AAAA",
+  "montant_ttc": 0.00,
+  "tva": 0.00,
+  "devise": "EUR",
+  "description": "courte description du motif",
+  "confiance": "haute | moyen | basse"
+}
+
+Les valeurs numériques sont des nombres décimaux, pas des chaînes.
+Si un champ est absent ou illisible, sa valeur est null.
