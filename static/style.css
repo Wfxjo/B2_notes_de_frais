@@ -5,9 +5,9 @@
 }
 
 body {
-    background-color: #f4f5f9;
-    color: #1e1e3f;
-    font-family: 'Georgia', 'Times New Roman', serif;
+    background-color: #f7f7f7;
+    color: #1a1a1a;
+    font-family: 'Arial', sans-serif;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -18,38 +18,45 @@ body {
     width: 100%;
     max-width: 640px;
     background-color: #ffffff;
-    border-radius: 12px;
+    border-radius: 0;
     padding: 2.5rem;
-    border: 1px solid #e0e2f0;
-    box-shadow: 0 2px 12px rgba(79, 70, 229, 0.06);
+    border-top: 5px solid #e91e8c;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
 h1 {
-    font-size: 1.6rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #1a1a1a;
     margin-bottom: 2rem;
-    color: #1e1e3f;
-    letter-spacing: -0.01em;
-    border-bottom: 2px solid #4f46e5;
     padding-bottom: 0.75rem;
+    border-bottom: 3px solid #f5d800;
+}
+
+h1 span {
+    color: #e91e8c;
 }
 
 .upload-zone {
-    border: 2px dashed #c7c5f0;
-    border-radius: 10px;
+    border: 2px dashed #e91e8c;
+    border-radius: 0;
     padding: 2rem;
     text-align: center;
     cursor: pointer;
-    transition: border-color 0.2s, background-color 0.2s;
+    transition: background-color 0.2s;
     margin-bottom: 1.25rem;
-    background-color: #f8f8fd;
-    color: #6b63d9;
+    background-color: #fff8fe;
+    color: #e91e8c;
     font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .upload-zone:hover {
-    border-color: #4f46e5;
-    background-color: #eeeeff;
+    background-color: #fce8f5;
 }
 
 .upload-zone input[type="file"] {
@@ -58,33 +65,34 @@ h1 {
 
 #preview {
     max-width: 100%;
-    border-radius: 8px;
     margin-top: 1rem;
-    border: 1px solid #e0e2f0;
+    border: 2px solid #f5d800;
 }
 
 button {
-    background-color: #4f46e5;
+    background-color: #e91e8c;
     color: #ffffff;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    padding: 0.85rem 1.5rem;
+    border-radius: 0;
     cursor: pointer;
-    font-size: 0.95rem;
-    font-family: 'Georgia', 'Times New Roman', serif;
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-family: 'Arial', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     width: 100%;
     margin-bottom: 1rem;
-    letter-spacing: 0.01em;
     transition: background-color 0.2s;
 }
 
 button:hover {
-    background-color: #4338ca;
+    background-color: #c2157a;
 }
 
 button:active {
-    background-color: #3730a3;
+    background-color: #f5d800;
+    color: #1a1a1a;
 }
 
 form {
@@ -92,47 +100,54 @@ form {
     flex-direction: column;
     gap: 1rem;
     margin-top: 1.25rem;
+    border-top: 3px solid #f5d800;
+    padding-top: 1.25rem;
 }
 
 label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #4338ca;
+    font-size: 0.72rem;
+    font-weight: 900;
+    color: #e91e8c;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 0.25rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.2rem;
     display: block;
 }
 
 input, select {
-    background-color: #f8f8fd;
-    border: 1px solid #c7c5f0;
-    color: #1e1e3f;
+    background-color: #fafafa;
+    border: 1px solid #1a1a1a;
+    border-left: 3px solid #e91e8c;
+    color: #1a1a1a;
     padding: 0.65rem 0.9rem;
-    border-radius: 7px;
+    border-radius: 0;
     font-size: 0.95rem;
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-family: 'Arial', sans-serif;
     width: 100%;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus, select:focus {
     outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    border-left: 3px solid #f5d800;
+    box-shadow: 2px 0 0 #f5d800;
     background-color: #ffffff;
 }
 
-input::placeholder {
-    color: #a5a3c8;
+input[readonly] {
+    border-left: 3px solid #00b4d8;
+    color: #555;
+    background-color: #f0f9fc;
 }
 
 #confirmation-container {
     margin-top: 1.25rem;
-    font-size: 0.95rem;
-    color: #3730a3;
-    background-color: #eeeeff;
-    border-left: 3px solid #4f46e5;
-    padding: 0.75rem 1rem;
-    border-radius: 0 6px 6px 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #1a1a1a;
+    background-color: #f5d800;
+    border-left: 5px solid #e91e8c;
+    padding: 0.85rem 1rem;
 }
