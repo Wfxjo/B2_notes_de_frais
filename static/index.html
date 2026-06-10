@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes de Frais</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>📄 Notes de Frais</h1>
+
+        <div class="upload-zone" id="upload-zone">
+            <p>Glissez une photo ou cliquez pour choisir</p>
+            <input type="file" id="file-input" accept="image/*" capture="environment" />
+            <img id="preview" src="" alt="" style="display:none;" />
+        </div>
+
+        <button id="analyze-btn" style="display:none;">Analyser</button>
+
+        <div id="form-container"></div>
+        <div id="confirmation-container"></div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
