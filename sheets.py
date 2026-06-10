@@ -23,6 +23,11 @@ HEADERS = [
     "Description", "Confiance", "Image"
 ]
 
+EXPENSE_FIELDS = [
+    "type_document", "fournisseur", "date",
+    "montant_ttc", "tva", "devise", "description", "confiance"
+]
+
 
 def get_credentials() -> Credentials:
     json_path = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON")
@@ -37,34 +42,34 @@ class GoogleSheetsClient:
         self.sheet = self.client.open_by_key(sheet_id).worksheet(SHEET_NAME)
         self.drive = build("drive", "v3", credentials=self.creds)
 
-    def upload_image(self, image_bytes: bytes, media_type: str) -> str:
+    def _upload_to_drive(self, image_bytes: bytes, media_type: str) -> str:
         filename = f"expense_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        folder_id = os.getenv("GOOGLE_DRIVE_FOLDER_ID")
         media = MediaIoBaseUpload(io.BytesIO(image_bytes), mimetype=media_type)
         file = self.drive.files().create(
-            body={"name": filename},
+            body={"name": filename, "parents": [folder_id]},
             media_body=media,
             fields="id"
         ).execute()
-        file_id = file.get("id")
+        return file.get("id")
+
+    def _make_public(self, file_id: str) -> None:
         self.drive.permissions().create(
             fileId=file_id,
             body={"type": "anyone", "role": "reader"}
         ).execute()
+
+    def upload_image(self, image_bytes: bytes, media_type: str) -> str:
+        file_id = self._upload_to_drive(image_bytes, media_type)
+        self._make_public(file_id)
         return f"https://drive.google.com/uc?id={file_id}"
 
     def append_expense(self, data: dict, image_url: str = None) -> None:
-        row = [
-            datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-            data.get("type_document"),
-            data.get("fournisseur"),
-            data.get("date"),
-            data.get("montant_ttc"),
-            data.get("tva"),
-            data.get("devise"),
-            data.get("description"),
-            data.get("confiance"),
-            f'=IMAGE("{image_url}")' if image_url else ""
-        ]
+        row = (
+            [datetime.now().strftime("%d/%m/%Y %H:%M:%S")]
+            + [data.get(field) for field in EXPENSE_FIELDS]
+            + [f'=IMAGE("{image_url}")' if image_url else ""]
+        )
         self.sheet.append_row(row)
 
 
