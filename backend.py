@@ -13,18 +13,18 @@ EXPECTED_FIELDS = [
 ]
 
 
-def load_file(filename: str) -> str:
-    base = os.path.dirname(os.path.abspath(__file__))
-    with open(os.path.join(base, filename), "r") as f:
-        return f.read()
+def load_text_file(filename: str) -> str:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(base_dir, filename), "r") as file:
+        return file.read()
 
 
 class ExpenseAgent:
     def __init__(self):
         self.client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         self.model = "meta-llama/llama-4-scout-17b-16e-instruct"
-        self.system_prompt = load_file("context.txt")
-        self.user_prompt = load_file("prompt.txt")
+        self.system_prompt = load_text_file("context.txt")
+        self.user_prompt = load_text_file("prompt.txt")
 
     def _build_messages(self, image_b64: str, media_type: str) -> list:
         return [
@@ -51,13 +51,13 @@ class ExpenseAgent:
 if __name__ == "__main__":
     import sys
 
-    path = sys.argv[1] if len(sys.argv) > 1 else "test.jpg"
-    with open(path, "rb") as f:
-        data = f.read()
+    image_path = sys.argv[1] if len(sys.argv) > 1 else "test.jpg"
+    with open(image_path, "rb") as image_file:
+        image_bytes = image_file.read()
 
     agent = ExpenseAgent()
     print(json.dumps(
-        agent.extract_from_bytes(data, "image/jpeg"),
+        agent.extract_from_bytes(image_bytes, "image/jpeg"),
         indent=2,
         ensure_ascii=False
     ))
